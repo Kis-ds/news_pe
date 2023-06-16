@@ -10,8 +10,6 @@ from wordcloud import WordCloud
 import collections
 import datetime
 
-# 기본 테마를 어둡게 설정
-st.set_page_config(layout="wide", initial_sidebar_state="auto", theme="dark")
 
 
 
