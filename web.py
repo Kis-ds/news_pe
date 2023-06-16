@@ -13,6 +13,23 @@ import datetime
 
 
 
+
+
+# 나의 네이버 api key
+# client_id = 'Gl6rn9yKXlpKfi9xKmS1'
+# client_secret = 'MLQziOjQAl'
+# 스타일 변경 참고 :  https://www.youtube.com/watch?v=gr_KyGfO_eU
+# 하이퍼링크 : https://discuss.streamlit.io/t/how-to-display-a-clickable-link-pandas-dataframe/32612/2
+# 하이퍼링크 : https://discuss.streamlit.io/t/display-urls-in-dataframe-column-as-a-clickable-hyperlink/743/4
+# 변수명 한번에 변경 : https://summerorange.tistory.com/entry/pycharm-%EB%B3%80%EC%88%98%EB%AA%85-%EB%B0%94%EA%BE%B8%EA%B8%B0ctrlR
+# 스타일이 바뀐다? : https://discuss.streamlit.io/t/applying-custom-css-to-manually-created-containers/33428
+
+
+# 스타일참고 : https://docs.streamlit.io/library/advanced-features/configuration#set-configuration-options
+# https://docs.streamlit.io/library/advanced-features/theming#base
+# https://discuss.streamlit.io/t/set-default-theme-on-load/13397/2
+# https://yeomss.tistory.com/319
+
 def loadPickle(path):
     with open(path, 'rb') as fr:
         df = pickle.load(fr)
@@ -554,3 +571,4 @@ else :
     st.dataframe(COM_df[COM_df['검색어'].isin(radio_sel3_3)].reset_index(drop=True), 200000, 500, use_container_width=True)
 # st.markdown(df[df['검색어'].isin(radio_sel3_3)].reset_index(drop=True).to_html(render_links=True), unsafe_allow_html=True)
 '-----'
+
