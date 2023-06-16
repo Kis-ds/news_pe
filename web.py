@@ -461,7 +461,7 @@ COM_df = df[(df.토픽 == '회사채')][['검색어','발행일시','언론사',
 
 col_p4_1, empty_p4_1, empty_p4_2, empty_p4_3, empty_p4_4, col_p4_2= st.columns([0.3, 0.1, 0.1, 0.1, 0.1, 0.3])
 with col_p4_1:
-    st.subheader('* PE 동향')
+    st.subheader('* 회사채 동향')
 with empty_p4_1 :
     st.empty()
 with empty_p4_2 :
