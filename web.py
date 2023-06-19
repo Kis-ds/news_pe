@@ -27,7 +27,7 @@ def loadJSON(path):
 
 
 def load_lottie():
-    with open('./resources/news_lottie_2.json', 'r', encoding='utf-8-sig') as st_json:
+    with open('./resources/news_lottie_4.json', 'r', encoding='utf-8-sig') as st_json:
         return json.load(st_json)
 
 # # test about link
@@ -221,10 +221,10 @@ with empty_p1_2:
 len_2_1 = df[df['검색어'].isin(ipo_search_list)].shape[0]
 
 # 중복제거
-true_type_1 = df[(df.중복기업기사제거 == False) & (df['검색어'].isin(ipo_search_list))][['검색어','발행일시','언론사','타이틀','요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스']].reset_index(drop=True)
+true_type_1 = df[(df.중복기업기사제거 == False) & (df['검색어'].isin(ipo_search_list))][['검색어','발행일시','언론사','타이틀', '요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스', '제목내최초기업명','기업기준동일기사개수_이틀간','기업기준동일기사개수_일주일']].reset_index(drop=True)
 
 # 중복제거x
-IPO_df = df[(df.토픽 == 'IPO')][['검색어','발행일시','언론사','타이틀','요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스']]
+IPO_df = df[(df.토픽 == 'IPO')][['검색어','발행일시','언론사','타이틀', '요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스', '제목내최초기업명','기업기준동일기사개수_이틀간','기업기준동일기사개수_일주일']]
 # col_p2_1, empty_p2_4, col_p2_2 = st.columns([0.6, 0.1, 0.2])
 col_p2_1, empty_p2_1, empty_p2_2, empty_p2_3, empty_p2_4, col_p2_2 = st.columns([0.3, 0.1, 0.1, 0.1, 0.1, 0.3])
 with col_p2_1:
@@ -351,8 +351,8 @@ else :
 
 ##### PE PART
 len_2_2 = df[df['검색어'].isin(pe_search_list)].shape[0]
-true_type_2 = df[(df.중복기업기사제거 == False) &(df['토픽'] == 'PE')][['검색어','발행일시','언론사','타이틀','요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스']].reset_index(drop=True)
-PE_df = df[(df.토픽 == 'PE')][['검색어','발행일시','언론사','타이틀','요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스']]
+true_type_2 = df[(df.중복기업기사제거 == False) &(df['토픽'] == 'PE')][['검색어','발행일시','언론사','타이틀', '요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스', '제목내최초기업명','기업기준동일기사개수_이틀간','기업기준동일기사개수_일주일']].reset_index(drop=True)
+PE_df = df[(df.토픽 == 'PE')][['검색어','발행일시','언론사','타이틀', '요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스', '제목내최초기업명','기업기준동일기사개수_이틀간','기업기준동일기사개수_일주일']]
 
 col_p3_1, empty_p3_1, empty_p3_2, empty_p3_3, empty_p3_4, col_p3_2= st.columns([0.3, 0.1, 0.1, 0.1, 0.1, 0.3])
 with col_p3_1:
@@ -472,10 +472,10 @@ else :
 len_2_3 = df[df['검색어'].isin(company_search_list)].shape[0]
 
 # 중복제거 VER
-true_type_3 = df[(df.중복기업기사제거 == False) & (df['검색어'].isin(company_search_list))][['검색어','발행일시','언론사','타이틀','요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스']].reset_index(drop=True)
+true_type_3 = df[(df.중복기업기사제거 == False) & (df['검색어'].isin(company_search_list))][['검색어','발행일시','언론사','타이틀', '요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스', '제목내최초기업명','기업기준동일기사개수_이틀간','기업기준동일기사개수_일주일']].reset_index(drop=True)
 
 # 중복제거X
-COM_df = df[(df.토픽 == '회사채')][['검색어','발행일시','언론사','타이틀','요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스']]
+COM_df = df[(df.토픽 == '회사채')][['검색어','발행일시','언론사','타이틀', '요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스', '제목내최초기업명','기업기준동일기사개수_이틀간','기업기준동일기사개수_일주일']]
 
 col_p4_1, empty_p4_1, empty_p4_2, empty_p4_3, empty_p4_4, col_p4_2= st.columns([0.3, 0.1, 0.1, 0.1, 0.1, 0.3])
 with col_p4_1:
@@ -601,5 +601,3 @@ else :
 '-----'
 
 # st.dataframe(type1)
-
-
