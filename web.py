@@ -15,6 +15,20 @@ import datetime
 
 
 
+# 나의 네이버 api key
+# client_id = 'Gl6rn9yKXlpKfi9xKmS1'
+# client_secret = 'MLQziOjQAl'
+# 스타일 변경 참고 :  https://www.youtube.com/watch?v=gr_KyGfO_eU
+# 하이퍼링크 : https://discuss.streamlit.io/t/how-to-display-a-clickable-link-pandas-dataframe/32612/2
+# 하이퍼링크 : https://discuss.streamlit.io/t/display-urls-in-dataframe-column-as-a-clickable-hyperlink/743/4
+# 변수명 한번에 변경 : https://summerorange.tistory.com/entry/pycharm-%EB%B3%80%EC%88%98%EB%AA%85-%EB%B0%94%EA%BE%B8%EA%B8%B0ctrlR
+# 스타일이 바뀐다? : https://discuss.streamlit.io/t/applying-custom-css-to-manually-created-containers/33428
+
+
+# 스타일참고 : https://docs.streamlit.io/library/advanced-features/configuration#set-configuration-options
+# https://docs.streamlit.io/library/advanced-features/theming#base
+# https://discuss.streamlit.io/t/set-default-theme-on-load/13397/2
+# https://yeomss.tistory.com/319
 
 def loadPickle(path):
     with open(path, 'rb') as fr:
@@ -264,6 +278,20 @@ with col_t2:
         company_2day = pd.merge(today, yester, on='제목내최초기업명', how='left').fillna(0)
         company_2day['delta_cnt'] = company_2day.today_cnt - company_2day.yester_cnt
 
+        today_shape = company_2day.shape[0]
+        make_null_cnt = 5 - today_shape
+
+        if today_shape < 5:
+            print('o')
+            null_df = pd.DataFrame({
+                '제목내최초기업명': ['ㅡ'] * make_null_cnt,
+                'today_cnt': [0] * make_null_cnt,
+                'yester_cnt': [0] * make_null_cnt,
+                'delta_cnt': [0] * make_null_cnt})
+
+            company_2day = pd.concat([company_2day, null_df]).reset_index(drop=True)
+
+
         # company_2day = df[df.수집일자 == crawling_date][['제목내최초기업명', '기업기준동일기사개수_이틀간']].drop_duplicates().dropna(axis = 0).sort_values(by = '기업기준동일기사개수_이틀간', ascending=False).reset_index(drop=True)
         # company_2day.columns = ['key_', 'cnt']
 
@@ -376,6 +404,20 @@ with col_t2:
         # 2일치
         company_2day_PE = pd.merge(today_PE, yester_PE, on='제목내최초기업명', how='left').fillna(0)
         company_2day_PE['delta_cnt'] = company_2day_PE.today_cnt - company_2day_PE.yester_cnt
+
+        # 예외 처리
+        today_shape = company_2day_PE.shape[0]
+        make_null_cnt = 5 - today_shape
+
+        if today_shape < 5:
+            print('o')
+            null_df = pd.DataFrame({
+                '제목내최초기업명': ['ㅡ'] * make_null_cnt,
+                'today_cnt': [0] * make_null_cnt,
+                'yester_cnt': [0] * make_null_cnt,
+                'delta_cnt': [0] * make_null_cnt})
+
+            company_2day_PE = pd.concat([company_2day_PE, null_df]).reset_index(drop=True)
 
         # company_2day = df[df.수집일자 == crawling_date][['제목내최초기업명', '기업기준동일기사개수_이틀간']].drop_duplicates().dropna(axis = 0).sort_values(by = '기업기준동일기사개수_이틀간', ascending=False).reset_index(drop=True)
         # company_2day.columns = ['key_', 'cnt']
@@ -490,6 +532,37 @@ with col_t3:
         company_2day_com = pd.merge(today_com, yester_com, on='제목내최초기업명', how='left').fillna(0)
         company_2day_com['delta_cnt'] = company_2day_com.today_cnt - company_2day_com.yester_cnt
 
+        # 예외 처리
+        today_shape = company_2day_com.shape[0]
+        make_null_cnt = 5 - today_shape
+
+        if today_shape < 5:
+            print('o')
+            null_df = pd.DataFrame({
+                '제목내최초기업명': ['ㅡ'] * make_null_cnt,
+                'today_cnt': [0] * make_null_cnt,
+                'yester_cnt': [0] * make_null_cnt,
+                'delta_cnt': [0] * make_null_cnt})
+
+            company_2day_com = pd.concat([company_2day_com, null_df]).reset_index(drop=True)
+
+        
+        # 예외 처리
+        today_shape = company_2day_com.shape[0]
+        make_null_cnt = 5 - today_shape
+
+        if today_shape < 5:
+            print('o')
+            null_df = pd.DataFrame({
+                '제목내최초기업명': ['ㅡ'] * make_null_cnt,
+                'today_cnt': [0] * make_null_cnt,
+                'yester_cnt': [0] * make_null_cnt,
+                'delta_cnt': [0] * make_null_cnt})
+
+            company_2day_com = pd.concat([company_2day_com, null_df]).reset_index(drop=True)
+
+        
+
         # company_2day = df[df.수집일자 == crawling_date][['제목내최초기업명', '기업기준동일기사개수_이틀간']].drop_duplicates().dropna(axis = 0).sort_values(by = '기업기준동일기사개수_이틀간', ascending=False).reset_index(drop=True)
         # company_2day.columns = ['key_', 'cnt']
 
@@ -517,8 +590,7 @@ with col_t3:
         st.write(':red[▶  누적 7일 기준]')
 
         company_7day_com = df[df.토픽 == '회사채'][['제목내최초기업명', '기업기준동일기사개수_일주일']].drop_duplicates().sort_values(by='기업기준동일기사개수_일주일',
-                                                                                        ascending=False).reset_index(
-            drop=True)
+                                                                                        ascending=False).reset_index(drop=True)
         company_7day_com.columns = ['key_', 'cnt']
 
         col_title_top1_com_7, col_title_top2_com_7, col_title_top3_com_7, col_title_top4_com_7, col_title_top5_com_7 = st.columns(5)
@@ -558,3 +630,38 @@ else :
 # st.markdown(df[df['검색어'].isin(radio_sel3_3)].reset_index(drop=True).to_html(render_links=True), unsafe_allow_html=True)
 '-----'
 
+# st.dataframe(type1)
+
+
+
+
+# import streamlit as st
+#
+# with st.container():
+#     st.write("text outside the container")
+# with st.container():
+#     st.write("text inside the container")
+#
+# st.write("More text outside the container")
+#
+#
+# st.markdown(
+#     """
+# <style>
+#     div[data-testid="stVerticalBlock"] div[style*="flex-direction: column;"] div[data-testid="stVerticalBlock"] {
+#         border: 1px solid white;
+#     }
+# </style>
+# """,
+#     unsafe_allow_html=True,
+# )
+
+# with st.container():
+#     st.text('interesting content')
+#     st.text('in a potentially ')
+#     st.text('very stylish container')
+#
+# col1, col2, col3 = st.columns(3)
+# col1.write('cool column box 1')
+# col2.write('cool column box 2')
+# col3.write('cool column box 3')
