@@ -14,6 +14,22 @@ import datetime
 
 
 
+
+# 나의 네이버 api key
+# client_id = 'Gl6rn9yKXlpKfi9xKmS1'
+# client_secret = 'MLQziOjQAl'
+# 스타일 변경 참고 :  https://www.youtube.com/watch?v=gr_KyGfO_eU
+# 하이퍼링크 : https://discuss.streamlit.io/t/how-to-display-a-clickable-link-pandas-dataframe/32612/2
+# 하이퍼링크 : https://discuss.streamlit.io/t/display-urls-in-dataframe-column-as-a-clickable-hyperlink/743/4
+# 변수명 한번에 변경 : https://summerorange.tistory.com/entry/pycharm-%EB%B3%80%EC%88%98%EB%AA%85-%EB%B0%94%EA%BE%B8%EA%B8%B0ctrlR
+# 스타일이 바뀐다? : https://discuss.streamlit.io/t/applying-custom-css-to-manually-created-containers/33428
+
+
+# 스타일참고 : https://docs.streamlit.io/library/advanced-features/configuration#set-configuration-options
+# https://docs.streamlit.io/library/advanced-features/theming#base
+# https://discuss.streamlit.io/t/set-default-theme-on-load/13397/2
+# https://yeomss.tistory.com/319
+
 def loadPickle(path):
     with open(path, 'rb') as fr:
         df = pickle.load(fr)
@@ -29,7 +45,7 @@ def loadJSON(path):
 
 
 def load_lottie():
-    with open('./resources/news_lottie2.json', 'r', encoding='utf-8-sig') as st_json:
+    with open('./resources/news_lottie_3.json', 'r', encoding='utf-8-sig') as st_json:
         return json.load(st_json)
 
 # # test about link
@@ -604,3 +620,36 @@ else :
 
 # st.dataframe(type1)
 
+
+
+
+# import streamlit as st
+#
+# with st.container():
+#     st.write("text outside the container")
+# with st.container():
+#     st.write("text inside the container")
+#
+# st.write("More text outside the container")
+#
+#
+# st.markdown(
+#     """
+# <style>
+#     div[data-testid="stVerticalBlock"] div[style*="flex-direction: column;"] div[data-testid="stVerticalBlock"] {
+#         border: 1px solid white;
+#     }
+# </style>
+# """,
+#     unsafe_allow_html=True,
+# )
+
+# with st.container():
+#     st.text('interesting content')
+#     st.text('in a potentially ')
+#     st.text('very stylish container')
+#
+# col1, col2, col3 = st.columns(3)
+# col1.write('cool column box 1')
+# col2.write('cool column box 2')
+# col3.write('cool column box 3')
