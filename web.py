@@ -120,7 +120,7 @@ with col_t2itle:
     ''
     ''
     st.title('뉴스 데이터 한눈에 보기')
-    st.write(':red[일별 업데이트 (매일 6시 기준)]')
+    st.write(':red[일별 업데이트 (매일 9시 기준)]')
 
 # 세션 상태 초기화 ( id / password)
 if 'client_id' not in st.session_state:
