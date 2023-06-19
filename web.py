@@ -13,6 +13,7 @@ import datetime
 
 
 
+
 def loadPickle(path):
     with open(path, 'rb') as fr:
         df = pickle.load(fr)
@@ -351,7 +352,7 @@ else :
 
 
 ##### PE PART
-len_2_2 = df[df['검색어'].isin(['M&A', '경영권 인수', '공개매수'])].shape[0]
+len_2_2 = df[df['검색어'].isin(pe_search_list)].shape[0]
 true_type_2 = df[(df.중복기업기사제거 == False) &(df['토픽'] == 'PE')][['검색어','발행일시','언론사','타이틀','요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스']].reset_index(drop=True)
 PE_df = df[(df.토픽 == 'PE')][['검색어','발행일시','언론사','타이틀','요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스']]
 
