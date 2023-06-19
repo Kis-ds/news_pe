@@ -27,7 +27,7 @@ def loadJSON(path):
 
 
 def load_lottie():
-    with open('./resources/news_lottie_7.json', 'r', encoding='utf-8-sig') as st_json:
+    with open('./resources/news_lottie_2.json', 'r', encoding='utf-8-sig') as st_json:
         return json.load(st_json)
 
 # # test about link
