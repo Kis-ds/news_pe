@@ -133,7 +133,7 @@ with col_t2itle:
     ''
     ''
     st.title('뉴스 데이터 한눈에 보기')
-    st.write(':red[배치ver (매일 X시 기준)]')
+    st.write(':red[일별 업데이트 (매일 6시 기준)]')
 
 # 세션 상태 초기화 ( id / password)
 if 'client_id' not in st.session_state:
@@ -228,6 +228,8 @@ with empty_p1_2:
 ''
 '---'
 ''
+
+
 
 ##### IPO PART
 len_2_1 = df[df['검색어'].isin(['상장연기', '프리 IPO', '상장예비심사', 'IPO 주관'])].shape[0]
