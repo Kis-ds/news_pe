@@ -12,6 +12,7 @@ import datetime
 
 
 
+
 def loadPickle(path):
     with open(path, 'rb') as fr:
         df = pickle.load(fr)
@@ -119,7 +120,7 @@ with col_t2itle:
     ''
     ''
     st.title('뉴스 데이터 한눈에 보기')
-    st.write(':red[일별 업데이트 (매일 9시 기준)]')
+    st.write(':red[일별 업데이트 (매일 6시 기준)]')
 
 # 세션 상태 초기화 ( id / password)
 if 'client_id' not in st.session_state:
@@ -305,10 +306,24 @@ with col_t2:
     with st.container():
         st.write(':red[▶  누적 7일 기준]')
 
-        company_7day = df[['제목내최초기업명', '기업기준동일기사개수_일주일']].drop_duplicates().sort_values(by='기업기준동일기사개수_일주일',
+        company_7day = df[(df.수집일자 == crawling_date) & (df.토픽 == 'IPO')][['제목내최초기업명', '기업기준동일기사개수_일주일']].dropna(axis=0).drop_duplicates().sort_values(by='기업기준동일기사개수_일주일',
                                                                                         ascending=False).reset_index(
             drop=True)
         company_7day.columns = ['key_', 'cnt']
+
+        # 예외 처리
+        today_shape = company_7day.shape[0]
+        make_null_cnt = 5 - today_shape
+
+        if today_shape < 5:
+
+            null_df = pd.DataFrame({
+                'key_': ['ㅡ'] * make_null_cnt,
+                'cnt': [0] * make_null_cnt})
+
+            company_7day = pd.concat([company_7day, null_df]).reset_index(drop=True)
+
+
 
         col_lottie1, col_t2itle2, col33, col44, col55 = st.columns(5)
         with col_lottie1:
@@ -430,10 +445,22 @@ with col_t2:
     with st.container():
         st.write(':red[▶  누적 7일 기준]')
 
-        company_7day_PE = df[df.토픽 == 'PE'][['제목내최초기업명', '기업기준동일기사개수_일주일']].drop_duplicates().sort_values(by='기업기준동일기사개수_일주일',
-                                                                                        ascending=False).reset_index(
-            drop=True)
+        company_7day_PE = df[(df.수집일자 == crawling_date) & (df.토픽 == 'PE')][['제목내최초기업명', '기업기준동일기사개수_일주일']].dropna(axis=0).drop_duplicates().sort_values(by='기업기준동일기사개수_일주일',
+                                                                                        ascending=False).reset_index(drop=True)
         company_7day_PE.columns = ['key_', 'cnt']
+
+        # 예외 처리
+        today_shape = company_7day_PE.shape[0]
+        make_null_cnt = 5 - today_shape
+
+        if today_shape < 5:
+
+            null_df = pd.DataFrame({
+                'key_': ['ㅡ'] * make_null_cnt,
+                'cnt': [0] * make_null_cnt})
+
+            company_7day_PE = pd.concat([company_7day_PE, null_df]).reset_index(drop=True)
+
 
         col_title_top1_pe_7, col_title_top2_pe_7, col_title_top3_pe_7, col_title_top4_pe_7, col_title_top5_pe_7 = st.columns(5)
         with col_title_top1_pe_7:
@@ -559,9 +586,24 @@ with col_t3:
     with st.container():
         st.write(':red[▶  누적 7일 기준]')
 
-        company_7day_com = df[df.토픽 == '회사채'][['제목내최초기업명', '기업기준동일기사개수_일주일']].drop_duplicates().sort_values(by='기업기준동일기사개수_일주일',
-                                                                                        ascending=False).reset_index(drop=True)
+        company_7day_com = df[(df.수집일자 == crawling_date) & (df.토픽 == '회사채')][['제목내최초기업명', '기업기준동일기사개수_일주일']].dropna(
+            axis=0).drop_duplicates().sort_values(by='기업기준동일기사개수_일주일',
+                                                  ascending=False).reset_index(drop=True)
+
         company_7day_com.columns = ['key_', 'cnt']
+
+        # 예외 처리
+        today_shape = company_7day_com.shape[0]
+        make_null_cnt = 5 - today_shape
+
+        if today_shape < 5:
+
+            null_df = pd.DataFrame({
+                'key_': ['ㅡ'] * make_null_cnt,
+                'cnt': [0] * make_null_cnt})
+
+            company_7day_com = pd.concat([company_7day_com, null_df]).reset_index(drop=True)
+
 
         col_title_top1_com_7, col_title_top2_com_7, col_title_top3_com_7, col_title_top4_com_7, col_title_top5_com_7 = st.columns(5)
         with col_title_top1_com_7:
@@ -601,3 +643,5 @@ else :
 '-----'
 
 # st.dataframe(type1)
+
+
