@@ -86,6 +86,11 @@ def return_key_list(texts):
 # DATA LOAD
 df = loadPickle('./resources/all_full_db.pkl')         #all_full_db_060708
 
+ipo_search_list= ["상장 연기","상장 철회","프리 IPO","기술특례상장","상장예비심사","IPO 주관","IPO 수요예측"]
+pe_search_list = ["사모펀드","Private Equity","경영권 인수","공개매수","M&A","블록딜","지배구조개선","소수지분", "일감몰아주기", "LP Limited Partner", "컨소시엄", "볼트온", "롤업", "롤링베이시스", "LOI", "투자유치"]
+company_search_list = ["회사채","회사채 수요예측","회사채 발행","회사채 공모","유상증자","메자닌","영구채"]
+
+
 
 #제목 일자 설정
 df['수집일자'] = df['크롤링일자'].dt.strftime('%Y-%m-%d')
@@ -99,7 +104,6 @@ all_keyword = []
 for i in df.요약키워드리스트:
     all_keyword += i
 key_dict = collections.Counter(all_keyword)
-
 
 
 
@@ -232,10 +236,10 @@ with empty_p1_2:
 
 
 ##### IPO PART
-len_2_1 = df[df['검색어'].isin(['상장연기', '프리 IPO', '상장예비심사', 'IPO 주관'])].shape[0]
+len_2_1 = df[df['검색어'].isin(ipo_search_list)].shape[0]
 
 # 중복제거
-true_type_1 = df[(df.중복기업기사제거 == False) & (df['검색어'].isin(['상장연기', '프리 IPO', '상장예비심사', 'IPO 주관']))][['검색어','발행일시','언론사','타이틀','요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스']].reset_index(drop=True)
+true_type_1 = df[(df.중복기업기사제거 == False) & (df['검색어'].isin(ipo_search_list))][['검색어','발행일시','언론사','타이틀','요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스']].reset_index(drop=True)
 
 # 중복제거x
 IPO_df = df[(df.토픽 == 'IPO')][['검색어','발행일시','언론사','타이틀','요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스']]
@@ -284,7 +288,6 @@ with col_t2:
         make_null_cnt = 5 - today_shape
 
         if today_shape < 5:
-            print('o')
             null_df = pd.DataFrame({
                 '제목내최초기업명': ['ㅡ'] * make_null_cnt,
                 'today_cnt': [0] * make_null_cnt,
@@ -342,8 +345,8 @@ with empty_t2:
 ''
 ''
 
-radio_sel1_3 = st.multiselect(f"수집 뉴스 조회", ['상장연기', '프리 IPO', '상장예비심사', 'IPO 주관']
-                              , default=['상장연기', '프리 IPO', '상장예비심사', 'IPO 주관'], key='part2_1', max_selections=4
+radio_sel1_3 = st.multiselect(f"수집 뉴스 조회", ["상장 연기","상장 철회","프리 IPO","기술특례상장","상장예비심사","IPO 주관","IPO 수요예측"]
+                              , default=["상장 연기","상장 철회","프리 IPO","기술특례상장","상장예비심사","IPO 주관","IPO 수요예측"], key='part2_1', max_selections=7
                               , help=f"전체 기사 수 : {len_2_1}   →   중복기업기사 제거 경우의 기사수 : {true_type_1.shape[0]}이며, 각 열별로 원하시는 정렬이 가능합니다.")
 
 if skipped_button_IPO :
@@ -356,8 +359,6 @@ else :
 # 기존
 # st.dataframe(df[df['검색어'].isin(radio_sel1_3)].reset_index(drop=True), 200000, 500, use_container_width=True)
 '-----'
-
-
 
 
 
@@ -412,7 +413,7 @@ with col_t2:
         make_null_cnt = 5 - today_shape
 
         if today_shape < 5:
-            print('o')
+
             null_df = pd.DataFrame({
                 '제목내최초기업명': ['ㅡ'] * make_null_cnt,
                 'today_cnt': [0] * make_null_cnt,
@@ -468,8 +469,8 @@ with empty_t4:
 ''
 ''
 ''
-radio_sel2_3 = st.multiselect(f"수집 뉴스 조회", ['M&A', '경영권 인수', '공개매수']
-                              , default=['M&A', '경영권 인수', '공개매수'], key='part2_2', max_selections=3, help=f"검색어 선택 전체 기사 수 : {len_2_2}   →   중복기업기사 제거경우의 기사수 : {true_type_2.shape[0]}이며, 각 열별로 원하시는 정렬이 가능합니다.")
+radio_sel2_3 = st.multiselect(f"수집 뉴스 조회",  ["사모펀드","Private Equity","경영권 인수","공개매수","M&A","블록딜","지배구조개선","소수지분", "일감몰아주기", "LP Limited Partner", "컨소시엄", "볼트온", "롤업", "롤링베이시스", "LOI", "투자유치"]
+                              , default= ["사모펀드","Private Equity","경영권 인수","공개매수","M&A","블록딜","지배구조개선","소수지분", "일감몰아주기", "LP Limited Partner", "컨소시엄", "볼트온", "롤업", "롤링베이시스", "LOI", "투자유치"], key='part2_2', max_selections=len(pe_search_list), help=f"검색어 선택 전체 기사 수 : {len_2_2}   →   중복기업기사 제거경우의 기사수 : {true_type_2.shape[0]}이며, 각 열별로 원하시는 정렬이 가능합니다.")
 
 if skipped_button_PE :
     st.dataframe(true_type_2[true_type_2['검색어'].isin(radio_sel2_3)].reset_index(drop=True), 200000, 500, use_container_width=True)
@@ -482,13 +483,14 @@ else :
 '-----'
 
 
+# company_search_list = ["회사채","회사채 수요예측","회사채 발행","회사채 공모","유상증자","메자닌","영구채"]
 
 ##### 회사채 PART
 
-len_2_3 = df[df['검색어'].isin(['유상증자', '회사채 발행', '회사채 공모', '회사채 수요예측'])].shape[0]
+len_2_3 = df[df['검색어'].isin(company_search_list)].shape[0]
 
 # 중복제거 VER
-true_type_3 = df[(df.중복기업기사제거 == False) & (df['검색어'].isin(['유상증자', '회사채 발행', '회사채 공모', '회사채 수요예측']))][['검색어','발행일시','언론사','타이틀','요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스']].reset_index(drop=True)
+true_type_3 = df[(df.중복기업기사제거 == False) & (df['검색어'].isin(company_search_list))][['검색어','발행일시','언론사','타이틀','요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스']].reset_index(drop=True)
 
 # 중복제거X
 COM_df = df[(df.토픽 == '회사채')][['검색어','발행일시','언론사','타이틀','요약키워드리스트','뉴스URL','지피티스코어','제목스코어','인덱스']]
@@ -539,22 +541,6 @@ with col_t3:
         make_null_cnt = 5 - today_shape
 
         if today_shape < 5:
-            print('o')
-            null_df = pd.DataFrame({
-                '제목내최초기업명': ['ㅡ'] * make_null_cnt,
-                'today_cnt': [0] * make_null_cnt,
-                'yester_cnt': [0] * make_null_cnt,
-                'delta_cnt': [0] * make_null_cnt})
-
-            company_2day_com = pd.concat([company_2day_com, null_df]).reset_index(drop=True)
-
-        
-        # 예외 처리
-        today_shape = company_2day_com.shape[0]
-        make_null_cnt = 5 - today_shape
-
-        if today_shape < 5:
-            print('o')
             null_df = pd.DataFrame({
                 '제목내최초기업명': ['ㅡ'] * make_null_cnt,
                 'today_cnt': [0] * make_null_cnt,
@@ -620,8 +606,8 @@ with empty_t6:
 
 
 
-radio_sel3_3 = st.multiselect(f"수집 뉴스 조회", ['유상증자', '회사채 발행', '회사채 공모', '회사채 수요예측']
-                              , default=['유상증자', '회사채 발행', '회사채 공모', '회사채 수요예측'], key='part2_3', max_selections=5, help=f"전체 기사 수 : {len_2_3}   →   중복기업기사 제거경우의 기사수 : {true_type_3.shape[0]}이며, 각 열별로 원하시는 정렬이 가능합니다.")
+radio_sel3_3 = st.multiselect(f"수집 뉴스 조회", ["회사채","회사채 수요예측","회사채 발행","회사채 공모","유상증자","메자닌","영구채"]
+                              , default=["회사채","회사채 수요예측","회사채 발행","회사채 공모","유상증자","메자닌","영구채"], key='part2_3', max_selections=len(company_search_list), help=f"전체 기사 수 : {len_2_3}   →   중복기업기사 제거경우의 기사수 : {true_type_3.shape[0]}이며, 각 열별로 원하시는 정렬이 가능합니다.")
 
 if skipped_button_company :
 
