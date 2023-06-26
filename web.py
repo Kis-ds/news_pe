@@ -136,8 +136,7 @@ with st.sidebar.form(key='client_settins', clear_on_submit=True):
         st.experimental_rerun()
 
 ###### main form #####
-''
-''
+
 st.write("---")
 st.write(f'{crawling_date}일 기준 수집된 전체 주요 기사는 {df.shape[0]}개 입니다.')
 ''
