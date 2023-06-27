@@ -200,11 +200,11 @@ len_2_1 = df[df['검색어'].isin(ipo_search_list)].shape[0]
 
 # 중복제거
 true_type_1 = df[(df.중복기업기사제거 == False) & (df['검색어'].isin(ipo_search_list))][
-    ['검색어', '발행일시', '언론사', '타이틀', '뉴스URL', '요약키워드리스트']].reset_index(drop=True)
+    ['검색어', '발행일시', '언론사', '타이틀', '뉴스URL', '요약키워드리스트', '제목내최초기업명']].reset_index(drop=True)
 
 # 중복제거x
 IPO_df = df[(df.토픽 == 'IPO')][
-    ['검색어', '발행일시', '언론사', '타이틀', '뉴스URL', '요약키워드리스트']]
+    ['검색어', '발행일시', '언론사', '타이틀', '뉴스URL', '요약키워드리스트', '제목내최초기업명']]
 # col_p2_1, empty_p2_4, col_p2_2 = st.columns([0.6, 0.1, 0.2])
 col_p2_1, empty_p2_1, empty_p2_2, empty_p2_3, empty_p2_4, col_p2_2 = st.columns([0.3, 0.1, 0.1, 0.1, 0.1, 0.3])
 with col_p2_1:
@@ -337,9 +337,9 @@ else:
 ##### PE PART
 len_2_2 = df[df['검색어'].isin(pe_search_list)].shape[0]
 true_type_2 = df[(df.중복기업기사제거 == False) & (df['토픽'] == 'PE')][
-    ['검색어', '발행일시', '언론사', '타이틀', '뉴스URL', '요약키워드리스트']].reset_index(drop=True)
+    ['검색어', '발행일시', '언론사', '타이틀', '뉴스URL', '요약키워드리스트', '제목내최초기업명']].reset_index(drop=True)
 PE_df = df[(df.토픽 == 'PE')][
-    ['검색어', '발행일시', '언론사', '타이틀', '뉴스URL', '요약키워드리스트']]
+    ['검색어', '발행일시', '언론사', '타이틀', '뉴스URL', '요약키워드리스트', '제목내최초기업명']]
 
 col_p3_1, empty_p3_1, empty_p3_2, empty_p3_3, empty_p3_4, col_p3_2 = st.columns([0.3, 0.1, 0.1, 0.1, 0.1, 0.3])
 with col_p3_1:
@@ -478,11 +478,11 @@ len_2_3 = df[df['검색어'].isin(company_search_list)].shape[0]
 
 # 중복제거 VER
 true_type_3 = df[(df.중복기업기사제거 == False) & (df['검색어'].isin(company_search_list))][
-    ['검색어', '발행일시', '언론사', '타이틀','뉴스URL', '요약키워드리스트']].reset_index(drop=True)
+    ['검색어', '발행일시', '언론사', '타이틀','뉴스URL', '요약키워드리스트', '제목내최초기업명']].reset_index(drop=True)
 
 # 중복제거X
 COM_df = df[(df.토픽 == '회사채')][
-    ['검색어', '발행일시', '언론사', '타이틀', '뉴스URL', '요약키워드리스트']]
+    ['검색어', '발행일시', '언론사', '타이틀', '뉴스URL', '요약키워드리스트', '제목내최초기업명']]
 
 col_p4_1, empty_p4_1, empty_p4_2, empty_p4_3, empty_p4_4, col_p4_2 = st.columns([0.3, 0.1, 0.1, 0.1, 0.1, 0.3])
 with col_p4_1:
