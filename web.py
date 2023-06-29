@@ -324,7 +324,7 @@ radio_sel1_3 = st.multiselect(f"수집 뉴스 조회", ["상장 연기", "상장
 multi_select_1 = st.multiselect(f"기업 선택", list(company_2day[:5].제목내최초기업명), default=list(company_2day[:5].제목내최초기업명), key="test_about_word", max_selections=5)
 
 if skipped_button_IPO:
-    st.dataframe(true_type_1[(true_type_1['검색어'].isin(radio_sel1_3)) & (true_type_1[true_type_1['제목내최초기업명'].isin(multi_select_1)])].reset_index(drop=True), 200000, 500,
+    st.dataframe(true_type_1[(true_type_1['검색어'].isin(radio_sel1_3)) & (true_type_1['제목내최초기업명'].isin(multi_select_1))].reset_index(drop=True), 200000, 500,
                  use_container_width=True)
 else:
     st.dataframe(IPO_df[(IPO_df['검색어'].isin(radio_sel1_3)) & (IPO_df['제목내최초기업명'].isin(multi_select_1))].reset_index(drop=True), 200000, 500, use_container_width=True)
@@ -456,12 +456,10 @@ radio_sel2_3 = st.multiselect(f"수집 뉴스 조회",
 
 multi_select_2 = st.multiselect(f"기업 선택", list(company_2day_PE[:5].제목내최초기업명), default=list(company_2day_PE[:5].제목내최초기업명), key="test_about_word2", max_selections=5)
 
-# multi_select_1 = st.multiselect(f"기업 선택", list(company_2day[:5].제목내최초기업명), default=list(company_2day[:5].제목내최초기업명), key="test_about_word", max_selections=5)
-# ['제목내최초기업명'].isin(multi_select_1)
 
 
 if skipped_button_PE:
-    st.dataframe(true_type_2[(true_type_2['검색어'].isin(radio_sel2_3)) & (true_type_2[true_type_2['제목내최초기업명'].isin(multi_select_2)])].reset_index(drop=True), 200000, 500,
+    st.dataframe(true_type_2[(true_type_2['검색어'].isin(radio_sel2_3)) & (true_type_2['제목내최초기업명'].isin(multi_select_2))].reset_index(drop=True), 200000, 500,
                  use_container_width=True)
 else:
     st.dataframe(PE_df[(PE_df['검색어'].isin(radio_sel2_3)) & (PE_df['제목내최초기업명'].isin(multi_select_2))].reset_index(drop=True), 200000, 500, use_container_width=True)
@@ -609,5 +607,3 @@ else:
 '-----'
 
 # st.dataframe(type1)
-
-
