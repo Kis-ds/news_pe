@@ -1,4 +1,31 @@
 
+.css-q8sbsg.e16nr0p34 p{
+    font-size : 18px;
+    font-weight: bold;
+    padding-bottom: 12px;
+}
+
+.css-1wivap2.e16fv1kl3 {
+    font-size : 16px;
+    padding-bottom: 4px;
+}
+
+
+
+[data-testid="stHorizontalBlock"] > [data-testid="column"] > [style*="overflow: visible; width: 0px; display: flex; flex-direction: column; flex: 1 1 0%;"] > [data-testid="stVerticalBlock"] > [style*="overflow: visible; width: 0px; display: flex; flex-direction: column; flex: 1 1 0%;"] > [data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"]{
+
+    border: 1px solid white;
+    border-radius : 16px ;
+    padding : 20px ;
+    box-shadow:1px 3px 3.5px 0px gray;
+    }
+
+
+
+
+
+/*
+before
 .css-1yy6isu.e16nr0p34 p{
     font-size : 21px;
     font-weight: bold;
@@ -43,4 +70,4 @@
     border-radius : 16px ;
     padding : 20px ;
     box-shadow:1px 3px 3.5px 0px gray;
-    }
+    } */
