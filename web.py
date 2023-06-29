@@ -321,7 +321,7 @@ radio_sel1_3 = st.multiselect(f"수집 뉴스 조회", ["상장 연기", "상장
                               ,
                               help=f"전체 기사 수 : {len_2_1}   →   중복기업기사 제거 경우의 기사수 : {true_type_1.shape[0]}이며, 각 열별로 원하시는 정렬이 가능합니다.")
 
-multi_select_1 = st.multiselect(f"기업 선택", list(company_2day[:5].제목내최초기업명), default=list(company_2day[:5].제목내최초기업명), key="test_about_word", max_selections=5)
+multi_select_1 = st.multiselect(f"기업 선택", list(company_2day.제목내최초기업명), default=list(company_2day.제목내최초기업명), key="test_about_word", max_selections=len(list(company_2day.제목내최초기업명)))
 
 if skipped_button_IPO:
     st.dataframe(true_type_1[(true_type_1['검색어'].isin(radio_sel1_3)) & (true_type_1['제목내최초기업명'].isin(multi_select_1))].reset_index(drop=True), 200000, 500,
@@ -454,7 +454,7 @@ radio_sel2_3 = st.multiselect(f"수집 뉴스 조회",
                               key='part2_2', max_selections=len(pe_search_list),
                               help=f"검색어 선택 전체 기사 수 : {len_2_2}   →   중복기업기사 제거경우의 기사수 : {true_type_2.shape[0]}이며, 각 열별로 원하시는 정렬이 가능합니다.")
 
-multi_select_2 = st.multiselect(f"기업 선택", list(company_2day_PE[:5].제목내최초기업명), default=list(company_2day_PE[:5].제목내최초기업명), key="test_about_word2", max_selections=5)
+multi_select_2 = st.multiselect(f"기업 선택", list(company_2day_PE.제목내최초기업명), default=list(company_2day_PE.제목내최초기업명), key="test_about_word2", max_selections=len(list(company_2day_PE.제목내최초기업명)))
 
 
 
@@ -595,7 +595,7 @@ radio_sel3_3 = st.multiselect(f"수집 뉴스 조회", ["회사채", "회사채 
                               max_selections=len(company_search_list),
                               help=f"전체 기사 수 : {len_2_3}   →   중복기업기사 제거경우의 기사수 : {true_type_3.shape[0]}이며, 각 열별로 원하시는 정렬이 가능합니다.")
 
-multi_select_3 = st.multiselect(f"기업 선택", list(company_2day_com[:5].제목내최초기업명), default=list(company_2day_com[:5].제목내최초기업명), key="test_about_word3", max_selections=5)
+multi_select_3 = st.multiselect(f"기업 선택", list(company_2day_com.제목내최초기업명), default=list(company_2day_com.제목내최초기업명), key="test_about_word3", max_selections=len(list(company_2day_com.제목내최초기업명)))
 if skipped_button_company:
 
     st.dataframe(true_type_3[(true_type_3['검색어'].isin(radio_sel3_3)) & (true_type_3['제목내최초기업명'].isin(multi_select_3))].reset_index(drop=True), 200000, 500,
@@ -605,5 +605,3 @@ else:
     st.dataframe(COM_df[COM_df['검색어'].isin(radio_sel3_3)& (COM_df['제목내최초기업명'].isin(multi_select_3))].reset_index(drop=True), 200000, 500, use_container_width=True)
 # st.markdown(df[df['검색어'].isin(radio_sel3_3)].reset_index(drop=True).to_html(render_links=True), unsafe_allow_html=True)
 '-----'
-
-# st.dataframe(type1)
