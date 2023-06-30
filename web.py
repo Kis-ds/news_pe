@@ -163,6 +163,7 @@ keyword_yesterday = df[df.크롤링일자 == yester_date].검색어.value_counts
 keyword_yesterday.columns = ['key_', 'y_cnt']
 top_today = pd.merge(keyword_today, keyword_yesterday, on='key_', how='left').fillna(0)
 top_today['delta_cnt'] = top_today.t_cnt - top_today.y_cnt
+top_today['delta_cnt'] = top_today.delta_cnt.astype(float)
 # top_today = top_today.astype({'delta_cnt':'int'})
 
 
