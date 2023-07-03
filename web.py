@@ -36,7 +36,7 @@ def load_lottie():
 # # test about link
 def make_clickable(link):
     # text = link.split('=')[1]
-    return f'<a target="aboutlink" href="{link}">{"URL"}</a>'
+    return f'<a target="aboutlink" href="{link}">{"바로가기"}</a>'
 
 
 
