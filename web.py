@@ -1,4 +1,4 @@
-#### 업데이트 확인용
+#### hyperlink_test.py 확인
 
 
 import json
