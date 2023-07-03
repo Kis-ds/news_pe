@@ -255,10 +255,15 @@ with col_t2:
     with st.container():
         st.write(':red[▶  누적 7일 기준]')
 
-        company_7day = df[(df.수집일자 == crawling_date) & (df.토픽 == 'IPO')][['제목내최초기업명', '기업기준동일기사개수_일주일']].dropna(
-            axis=0).drop_duplicates().sort_values(by='기업기준동일기사개수_일주일',
-                                                  ascending=False).reset_index(
-            drop=True)
+        ### 7day 수정 확인
+        sort_ipo_1 = df[df.토픽 == 'IPO'][['제목내최초기업명', '크롤링일자']].dropna(axis=0).groupby(['제목내최초기업명']).max().reset_index()
+        sort_ipo_2 = pd.merge(sort_ipo_1, df[df.토픽 == 'IPO'][['제목내최초기업명', '크롤링일자', '기업기준동일기사개수_일주일']].dropna(axis=0).drop_duplicates(), on=['제목내최초기업명', '크롤링일자'], how='left')
+        company_7day = sort_ipo_2.sort_values(by='기업기준동일기사개수_일주일', ascending=False).reset_index(drop=True).drop(['크롤링일자'], axis=1)
+
+        # company_7day = df[(df.수집일자 == crawling_date) & (df.토픽 == 'IPO')][['제목내최초기업명', '기업기준동일기사개수_일주일']].dropna(
+        #     axis=0).drop_duplicates().sort_values(by='기업기준동일기사개수_일주일',
+        #                                           ascending=False).reset_index(
+        #     drop=True)
         company_7day.columns = ['key_', 'cnt']
 
         # 예외 처리
@@ -400,9 +405,17 @@ with col_t2:
     with st.container():
         st.write(':red[▶  누적 7일 기준]')
 
-        company_7day_PE = df[(df.수집일자 == crawling_date) & (df.토픽 == 'PE')][['제목내최초기업명', '기업기준동일기사개수_일주일']].dropna(
-            axis=0).drop_duplicates().sort_values(by='기업기준동일기사개수_일주일',
-                                                  ascending=False).reset_index(drop=True)
+
+        ### 7day 수정 확인
+        sort_pe_1 = df[df.토픽 == 'PE'][['제목내최초기업명', '크롤링일자']].dropna(axis=0).groupby(['제목내최초기업명']).max().reset_index()
+        sort_pe_2 = pd.merge(sort_pe_1, df[df.토픽 == 'PE'][['제목내최초기업명', '크롤링일자', '기업기준동일기사개수_일주일']].dropna(axis=0).drop_duplicates(), on=['제목내최초기업명', '크롤링일자'], how='left')
+        company_7day_PE = sort_pe_2.sort_values(by='기업기준동일기사개수_일주일', ascending=False).reset_index(drop=True).drop(['크롤링일자'], axis=1)
+
+
+
+        # company_7day_PE = df[(df.수집일자 == crawling_date) & (df.토픽 == 'PE')][['제목내최초기업명', '기업기준동일기사개수_일주일']].dropna(
+        #     axis=0).drop_duplicates().sort_values(by='기업기준동일기사개수_일주일',
+        #                                           ascending=False).reset_index(drop=True)
         company_7day_PE.columns = ['key_', 'cnt']
 
         # 예외 처리
@@ -557,9 +570,15 @@ with col_t3:
     with st.container():
         st.write(':red[▶  누적 7일 기준]')
 
-        company_7day_com = df[(df.수집일자 == crawling_date) & (df.토픽 == '회사채')][['제목내최초기업명', '기업기준동일기사개수_일주일']].dropna(
-            axis=0).drop_duplicates().sort_values(by='기업기준동일기사개수_일주일',
-                                                  ascending=False).reset_index(drop=True)
+        ### 7day 수정 확인
+        sort_com_1 = df[df.토픽 == '회사채'][['제목내최초기업명', '크롤링일자']].dropna(axis=0).groupby(['제목내최초기업명']).max().reset_index()
+        sort_com_2 = pd.merge(sort_com_1, df[df.토픽 == '회사채'][['제목내최초기업명', '크롤링일자', '기업기준동일기사개수_일주일']].dropna(axis=0).drop_duplicates(), on=['제목내최초기업명', '크롤링일자'], how='left')
+        company_7day_com = sort_com_2.sort_values(by='기업기준동일기사개수_일주일', ascending=False).reset_index(drop=True).drop(['크롤링일자'], axis=1)
+
+
+        # company_7day_com = df[(df.수집일자 == crawling_date) & (df.토픽 == '회사채')][['제목내최초기업명', '기업기준동일기사개수_일주일']].dropna(
+        #     axis=0).drop_duplicates().sort_values(by='기업기준동일기사개수_일주일',
+        #                                           ascending=False).reset_index(drop=True)
 
         company_7day_com.columns = ['key_', 'cnt']
 
@@ -620,6 +639,7 @@ else:
     st.write(tmp4_2, unsafe_allow_html=True)
     # multi_select_3 버전 제거
     # st.dataframe(COM_df[COM_df['검색어'].isin(radio_sel3_3)& (COM_df['제목내최초기업명'].isin(multi_select_3))].reset_index(drop=True), 200000, 500, use_container_width=True)
+
 
 
 '-----'
