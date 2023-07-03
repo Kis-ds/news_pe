@@ -1,4 +1,5 @@
-#### hyperlink_test.py 확인
+### hyperlink_test.py 확인
+#### 업데이트 확인용
 
 
 import json
@@ -36,7 +37,7 @@ def load_lottie():
 # # test about link
 def make_clickable(link):
     # text = link.split('=')[1]
-    return f'<a target="aboutlink" href="{link}">{"바로가기"}</a>'
+    return f'<a target="aboutlink" href="{link}">{"URL"}</a>'
 
 
 
@@ -434,7 +435,7 @@ with col_t2:
         with col_title_top1_pe_7:
             st.metric(label=company_7day_PE['key_'][0], value=company_7day_PE['cnt'][0], delta='')
         with col_title_top2_pe_7:
-            st.metric(label=company_7day_PE['key_'][1], value=company_7day['cnt'][1], delta='')
+            st.metric(label=company_7day_PE['key_'][1], value=company_7day_PE['cnt'][1], delta='')
         with col_title_top3_pe_7:
             st.metric(label=company_7day_PE['key_'][2], value=company_7day_PE['cnt'][2], delta='')
         with col_title_top4_pe_7:
@@ -641,5 +642,7 @@ else:
     # st.dataframe(COM_df[COM_df['검색어'].isin(radio_sel3_3)& (COM_df['제목내최초기업명'].isin(multi_select_3))].reset_index(drop=True), 200000, 500, use_container_width=True)
 
 
+# st.markdown(df[df['검색어'].isin(radio_sel3_3)].reset_index(drop=True).to_html(render_links=True), unsafe_allow_html=True)
 
 '-----'
+
