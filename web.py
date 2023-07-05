@@ -1,4 +1,4 @@
-### hyperlink_test.py 확인
+### hyperlink_test.py확인
 #### 업데이트 확인용
 
 
@@ -51,10 +51,12 @@ def return_key_list(texts):
 # DATA LOAD
 df = loadPickle('./resources/all_full_db.pkl')  # all_full_db_060708
 
-ipo_search_list = ["상장 연기", "상장 철회", "프리 IPO", "기술특례상장", "상장예비심사", "IPO 주관", "IPO 수요예측"]
-pe_search_list = ["사모펀드", "Private Equity", "경영권 인수", "공개매수", "M&A", "블록딜", "지배구조개선", "소수지분", "일감몰아주기",
-                  "LP Limited Partner", "컨소시엄", "볼트온", "롤업", "롤링베이시스", "LOI", "투자유치"]
-company_search_list = ["회사채", "회사채 수요예측", "회사채 발행", "회사채 공모", "유상증자", "메자닌", "영구채"]
+
+
+
+ipo_search_list = ["상장 연기","상장 철회","프리 IPO","기술특례상장","상장예비심사","IPO 주관","IPO 수요예측"]
+pe_search_list = ["사모펀드","경영권 인수","공개매수","M&A","블록딜","지배구조개선","소수지분", "일감몰아주기", "LP Limited Partner", "컨소시엄", "볼트온", "롤업", "롤링베이시스", "LOI", "투자유치"]
+company_search_list = ["회사채","회사채 수요예측","회사채 발행","회사채 공모","유상증자","메자닌","영구채"]
 
 # 제목 일자 설정
 df['수집일자'] = df['크롤링일자'].dt.strftime('%Y-%m-%d')
@@ -171,8 +173,6 @@ with empty_p1_2:
 len_2_1 = df[df['검색어'].isin(ipo_search_list)].shape[0]
 
 
-# [['검색어','발행일시','언론사','타이틀', '요약키워드리스트','뉴스URL',]]
-# 중복제거
 true_type_1 = df[(df.중복기업기사제거 == False) & (df['검색어'].isin(ipo_search_list))][
     ['검색어', '제목내최초기업명', '타이틀', '발행일시',  '뉴스URL']].reset_index(drop=True)
 
@@ -230,8 +230,7 @@ with col_t2:
 
             company_2day = pd.concat([company_2day, null_df]).reset_index(drop=True)
 
-        # company_2day = df[df.수집일자 == crawling_date][['제목내최초기업명', '기업기준동일기사개수_이틀간']].drop_duplicates().dropna(axis = 0).sort_values(by = '기업기준동일기사개수_이틀간', ascending=False).reset_index(drop=True)
-        # company_2day.columns = ['key_', 'cnt']
+
 
         col_lottie1, col_t2itle2, col33, col44, col55 = st.columns(5)
         # st.dataframe(company_2day)
@@ -261,10 +260,7 @@ with col_t2:
         sort_ipo_2 = pd.merge(sort_ipo_1, df[df.토픽 == 'IPO'][['제목내최초기업명', '크롤링일자', '기업기준동일기사개수_일주일']].dropna(axis=0).drop_duplicates(), on=['제목내최초기업명', '크롤링일자'], how='left')
         company_7day = sort_ipo_2.sort_values(by='기업기준동일기사개수_일주일', ascending=False).reset_index(drop=True).drop(['크롤링일자'], axis=1)
 
-        # company_7day = df[(df.수집일자 == crawling_date) & (df.토픽 == 'IPO')][['제목내최초기업명', '기업기준동일기사개수_일주일']].dropna(
-        #     axis=0).drop_duplicates().sort_values(by='기업기준동일기사개수_일주일',
-        #                                           ascending=False).reset_index(
-        #     drop=True)
+
         company_7day.columns = ['key_', 'cnt']
 
         # 예외 처리
@@ -294,12 +290,7 @@ with empty_t2:
 ''
 
 
-radio_sel1_3 = st.multiselect(f"수집 뉴스 조회", ["상장 연기", "상장 철회", "프리 IPO", "기술특례상장", "상장예비심사", "IPO 주관", "IPO 수요예측"]
-                              , default=["상장 연기", "상장 철회", "프리 IPO", "기술특례상장", "상장예비심사", "IPO 주관", "IPO 수요예측"],
-                              key='part2_1', max_selections=7)
-                              # help=f"전체 기사 수 : {len_2_1}   →   중복기업기사 제거 경우의 기사수 : {true_type_1.shape[0]}이며, 각 열별로 원하시는 정렬이 가능합니다.")
-
-# multi_select_1 = st.multiselect(f"기업 선택", list(company_2day.제목내최초기업명), default=list(company_2day.제목내최초기업명), key="test_about_word", max_selections=len(list(company_2day.제목내최초기업명)))
+radio_sel1_3 = st.multiselect(f"수집 뉴스 조회", ipo_search_list, default=ipo_search_list, key='part2_1', max_selections=7)
 
 
 if skipped_button_IPO:
@@ -309,8 +300,6 @@ if skipped_button_IPO:
     tmp1 = tmp1.to_html(escape=False)
     st.write(tmp1, unsafe_allow_html=True)
 
-    # 기존 출력물 (multi_select_1 추가)
-    # st.dataframe(true_type_1[(true_type_1['검색어'].isin(radio_sel1_3)) & (true_type_1['제목내최초기업명'].isin(multi_select_1))].reset_index(drop=True), 200000, 500, use_container_width=True)
 else:
     IPO_df['뉴스URL'] = IPO_df['뉴스URL'].apply(make_clickable)
     tmp2 = IPO_df[(IPO_df['검색어'].isin(radio_sel1_3))].reset_index(drop=True)
@@ -318,8 +307,6 @@ else:
     tmp2 = tmp2.to_html(escape=False)
     st.write(tmp2, unsafe_allow_html=True)
 
-    # 기존 출력물 (multi_select_1 추가)
-    # st.dataframe(IPO_df[(IPO_df['검색어'].isin(radio_sel1_3)) & (IPO_df['제목내최초기업명'].isin(multi_select_1))].reset_index(drop=True), 200000, 500, use_container_width=True)
 
 '-----'
 
@@ -381,8 +368,6 @@ with col_t2:
 
             company_2day_PE = pd.concat([company_2day_PE, null_df]).reset_index(drop=True)
 
-        # company_2day = df[df.수집일자 == crawling_date][['제목내최초기업명', '기업기준동일기사개수_이틀간']].drop_duplicates().dropna(axis = 0).sort_values(by = '기업기준동일기사개수_이틀간', ascending=False).reset_index(drop=True)
-        # company_2day.columns = ['key_', 'cnt']
 
         col_title_top1_pe, col_title_top2_pe, col_title_top3_pe, col_title_top4_pe, col_title_top5_pe = st.columns(5)
         with col_title_top1_pe:
@@ -414,9 +399,7 @@ with col_t2:
 
 
 
-        # company_7day_PE = df[(df.수집일자 == crawling_date) & (df.토픽 == 'PE')][['제목내최초기업명', '기업기준동일기사개수_일주일']].dropna(
-        #     axis=0).drop_duplicates().sort_values(by='기업기준동일기사개수_일주일',
-        #                                           ascending=False).reset_index(drop=True)
+
         company_7day_PE.columns = ['key_', 'cnt']
 
         # 예외 처리
@@ -445,15 +428,7 @@ with col_t2:
 with empty_t4:
     st.empty()
 ''
-radio_sel2_3 = st.multiselect(f"수집 뉴스 조회",
-                              ["사모펀드", "Private Equity", "경영권 인수", "공개매수", "M&A", "블록딜", "지배구조개선", "소수지분", "일감몰아주기",
-                               "LP Limited Partner", "컨소시엄", "볼트온", "롤업", "롤링베이시스", "LOI", "투자유치"]
-                              , default=["사모펀드", "Private Equity", "경영권 인수", "공개매수", "M&A", "블록딜", "지배구조개선", "소수지분",
-                                         "일감몰아주기", "LP Limited Partner", "컨소시엄", "볼트온", "롤업", "롤링베이시스", "LOI", "투자유치"],
-                              key='part2_2', max_selections=len(pe_search_list))
-                              # help=f"검색어 선택 전체 기사 수 : {len_2_2}   →   중복기업기사 제거경우의 기사수 : {true_type_2.shape[0]}이며, 각 열별로 원하시는 정렬이 가능합니다.")
-
-# multi_select_2 = st.multiselect(f"기업 선택", list(company_2day_PE.제목내최초기업명), default=list(company_2day_PE.제목내최초기업명), key="test_about_word2", max_selections=len(list(company_2day_PE.제목내최초기업명)))
+radio_sel2_3 = st.multiselect(f"수집 뉴스 조회", pe_search_list, default=pe_search_list, key='part2_2', max_selections=len(pe_search_list))
 
 
 
@@ -464,8 +439,6 @@ if skipped_button_PE:
     tmp2_2 = tmp2_2.to_html(escape=False)
     st.write(tmp2_2, unsafe_allow_html=True)
 
-    # (multi_select_2 추가한거) 기존 버전 제거
-    # st.dataframe(true_type_2[(true_type_2['검색어'].isin(radio_sel2_3)) & (true_type_2['제목내최초기업명'].isin(multi_select_2))].reset_index(drop=True), 200000, 500,use_container_width=True)
 
 else:
     PE_df['뉴스URL'] = PE_df['뉴스URL'].apply(make_clickable)
@@ -474,10 +447,7 @@ else:
     tmp2_3 = tmp2_3.to_html(escape=False)
     st.write(tmp2_3, unsafe_allow_html=True)
 
-    # (multi_select_2 추가한거) 기존 버전 제거
-    # st.dataframe(PE_df[(PE_df['검색어'].isin(radio_sel2_3)) & (PE_df['제목내최초기업명'].isin(multi_select_2))].reset_index(drop=True), 200000, 500, use_container_width=True)
 
-# st.dataframe(df[df['검색어'].isin(radio_sel2_3)].reset_index(drop=True), 200000, 500, use_container_width=True)
 
 '-----'
 
@@ -545,8 +515,6 @@ with col_t3:
 
             company_2day_com = pd.concat([company_2day_com, null_df]).reset_index(drop=True)
 
-        # company_2day = df[df.수집일자 == crawling_date][['제목내최초기업명', '기업기준동일기사개수_이틀간']].drop_duplicates().dropna(axis = 0).sort_values(by = '기업기준동일기사개수_이틀간', ascending=False).reset_index(drop=True)
-        # company_2day.columns = ['key_', 'cnt']
 
         col_title_top1_com, col_title_top2_com, col_title_top3_com, col_title_top4_com, col_title_top5_com = st.columns(
             5)
@@ -577,9 +545,6 @@ with col_t3:
         company_7day_com = sort_com_2.sort_values(by='기업기준동일기사개수_일주일', ascending=False).reset_index(drop=True).drop(['크롤링일자'], axis=1)
 
 
-        # company_7day_com = df[(df.수집일자 == crawling_date) & (df.토픽 == '회사채')][['제목내최초기업명', '기업기준동일기사개수_일주일']].dropna(
-        #     axis=0).drop_duplicates().sort_values(by='기업기준동일기사개수_일주일',
-        #                                           ascending=False).reset_index(drop=True)
 
         company_7day_com.columns = ['key_', 'cnt']
 
@@ -613,14 +578,8 @@ with empty_t6:
 
 tmp_company_name_ipo = df[df.수집일자 == crawling_date][['제목내최초기업명', '기업기준동일기사개수_이틀간']].drop_duplicates().sort_values(by = '기업기준동일기사개수_이틀간', ascending=False).reset_index(drop=True)
 company_name_ipo = list(tmp_company_name_ipo.제목내최초기업명)
-radio_sel3_3 = st.multiselect(f"수집 뉴스 조회", ["회사채", "회사채 수요예측", "회사채 발행", "회사채 공모", "유상증자", "메자닌", "영구채"]
-                              , default=["회사채", "회사채 수요예측", "회사채 발행", "회사채 공모", "유상증자", "메자닌", "영구채"], key='part2_3',
+radio_sel3_3 = st.multiselect(f"수집 뉴스 조회", company_search_list, default=company_search_list, key='part2_3',
                               max_selections=len(company_search_list))
-                              # help=f"전체 기사 수 : {len_2_3}   →   중복기업기사 제거경우의 기사수 : {true_type_3.shape[0]}이며, 각 열별로 원하시는 정렬이 가능합니다.")
-
-# 제거 len이 안맞음
-# multi_select_3 = st.multiselect(f"기업 선택", company_name_ipo, default=company_name_ipo, key="test_about_word3", max_selections=len(company_name_ipo))
-
 if skipped_button_company:
 
     true_type_3['뉴스URL'] = true_type_3['뉴스URL'].apply(make_clickable)
@@ -629,20 +588,12 @@ if skipped_button_company:
     tmp4_1 = tmp4_1.to_html(escape=False)
     st.write(tmp4_1, unsafe_allow_html=True)
 
-    # multi_select_3 버전 제거
-    # st.dataframe(true_type_3[(true_type_3['검색어'].isin(radio_sel3_3)) & (true_type_3['제목내최초기업명'].isin(multi_select_3))].reset_index(drop=True), 200000, 500,use_container_width=True)
-
 else:
     COM_df['뉴스URL'] = COM_df['뉴스URL'].apply(make_clickable)
     tmp4_2 = COM_df[(COM_df['검색어'].isin(radio_sel3_3))].reset_index(drop=True)#.to_html(escape=False)
     tmp4_2.columns = ['검색어', '기업명', '타이틀', '발행일시', '뉴스URL']
     tmp4_2 = tmp4_2.to_html(escape=False)
     st.write(tmp4_2, unsafe_allow_html=True)
-    # multi_select_3 버전 제거
-    # st.dataframe(COM_df[COM_df['검색어'].isin(radio_sel3_3)& (COM_df['제목내최초기업명'].isin(multi_select_3))].reset_index(drop=True), 200000, 500, use_container_width=True)
 
-
-# st.markdown(df[df['검색어'].isin(radio_sel3_3)].reset_index(drop=True).to_html(render_links=True), unsafe_allow_html=True)
 
 '-----'
-
