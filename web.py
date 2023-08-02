@@ -63,12 +63,14 @@ df['수집일자'] = df['크롤링일자'].dt.strftime('%Y-%m-%d')
 crawling_date = df['수집일자'].max()
 yester_date = df.크롤링일자.max() - pd.Timedelta(1, unit='days')
 
+
+# 일단 여기 주석
 # 요약키워드 리스트만들기
-df['요약키워드리스트'] = df.요약키워드.apply(return_key_list)
-all_keyword = []
-for i in df.요약키워드리스트:
-    all_keyword += i
-key_dict = collections.Counter(all_keyword)
+# df['요약키워드리스트'] = df.요약키워드.apply(return_key_list)
+# all_keyword = []
+# for i in df.요약키워드리스트:
+#     all_keyword += i
+# key_dict = collections.Counter(all_keyword)
 
 # Style
 st.set_page_config(layout="wide")
